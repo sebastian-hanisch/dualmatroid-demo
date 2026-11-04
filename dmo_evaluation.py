@@ -186,7 +186,7 @@ def verdict_dual_graph(a: Analysis, view: dict) -> tuple[str, str]:
     if not view["planar"]:
         return "warning", (
             f"{drawn}Der Plan ist **nicht planar**: Es gibt keine kreuzungsfreie Zeichnung und also keinen Dualgraphen. Das duale Matroid des Waldes ist trotzdem ein Matroid (Hauptansicht), "
-            f"aber **kein graphisches**: Das Dual eines graphischen Matroids ist genau bei planaren Graphen graphisch (Tutte; Experiment 4 zeigt es an K5 und K3,3)."
+            f"aber **kein graphisches**: Das Dual eines graphischen Matroids ist genau bei planaren Graphen graphisch (Whitney; Experiment 4 zeigt es an K5 und K3,3)."
         )
     chk = view["check"]
     if not chk["equal"] or not chk["euler"]:

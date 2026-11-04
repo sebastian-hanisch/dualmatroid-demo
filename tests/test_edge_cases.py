@@ -92,7 +92,7 @@ def test_dual_view_is_unavailable_for_other_systems_and_for_non_planar_plans():
     wa = ev.analyse(s)
     view = ev.dual_view(s, wa)
     kind, text = ev.verdict_dual_graph(wa, view)
-    assert view["available"] and not view["planar"] and kind == "warning" and "nicht planar" in text and "Tutte" in text
+    assert view["available"] and not view["planar"] and kind == "warning" and "nicht planar" in text and "Whitney" in text
 
 
 def test_minor_of_the_smallest_system_and_of_a_two_element_system():

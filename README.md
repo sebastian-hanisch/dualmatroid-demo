@@ -23,7 +23,7 @@ In Stück 4 war der Kreis eine kleinste Menge, die nicht zulässig ist. Im Graph
 
 ## Modell
 
-Dieselben elf Systeme wie in Stück 3 bis 5 auf einem **Leitungsnetz mit farbigen Kabeln** (n Standorte, Depot A in der Mitte, min(n(n − 1)/2, 2n − 2) mögliche Leitungen, drei Kabelfarben), davon sechs Matroide (Wald, Kabelfarben, Anschluss-Standort, höchstens 4 Leitungen, Standorte als Vektoren, Fano-Ebene) und fünf, die keine sind (Paarung, Wald mit höchstens 2 Leitungen je Standort, Budget-Auswahl, Standorte ohne Nachbarn, Wald und Farbregel); diese fünf haben **kein Dual**. Formeln und Beweisskizzen: Expander „📐 Mathematische Formulierung“ in der App.
+Dieselben elf Systeme wie in Stück 3 bis 5 auf einem **Leitungsnetz mit farbigen Kabeln** (n Standorte, Depot A in der Mitte, min(n(n − 1)/2, 2n − 2) mögliche Leitungen, drei Kabelfarben), davon sechs Matroide (Wald, Kabelfarben, Anschluss-Standort, höchstens 4 Leitungen, Standorte als Vektoren, Fano-Ebene) und fünf, die auf dem Standardplan keine sind (Paarung, Wald mit höchstens 2 Leitungen je Standort, Budget-Auswahl, Standorte ohne Nachbarn, Wald und Farbregel); diese fünf haben dort **kein Dual**. Wald und Farbregel ist auf manchen anderen Plänen (20 von 240 geprüften) doch ein Matroid und hat dann ein Dual. Formeln und Beweisskizzen: Expander „📐 Mathematische Formulierung“ in der App.
 
 ## Methodik
 
@@ -62,7 +62,7 @@ Alle Zahlen stehen in `tests/test_claims.py` und werden dort mit den Funktionen 
 
 - **Kleine Grundmengen.** Höchstens 16 Elemente; Basen, Kreise und Dual werden aus allen Teilmengen berechnet. Die Aufzählung aller Matroide geht nur bis 5 Elemente, die Suche nach einem U(2,4)-Minor nur bis 12 Elemente.
 - **Rechenzeit bei 9 Standorten.** Der erste Aufruf eines Systems mit 16 Leitungen braucht einige Sekunden (am längsten das Anschluss-System); danach liegt das Ergebnis im Zwischenspeicher.
-- **Der Dualgraph gilt nur beim Wald auf planaren Plänen,** auf einer neu gezeichneten Zeichnung, nicht auf den Standorten. Bei nichtplanaren Plänen (21 von 200 bei 7 Standorten) ist das Dual ein Matroid, aber **nicht graphisch**; das ist ein Satz von Tutte (Quelle: Vorlesungsskript, nicht die Originalarbeit) und hier nur an K5 und K3,3 durch Aufzählung nachgerechnet, nicht an den nichtplanaren Plänen.
+- **Der Dualgraph gilt nur beim Wald auf planaren Plänen,** auf einer neu gezeichneten Zeichnung, nicht auf den Standorten. Bei nichtplanaren Plänen (21 von 200 bei 7 Standorten) ist das Dual ein Matroid, aber **nicht graphisch**; das ist ein Satz von Whitney, das Planaritätskriterium (Quelle: Vorlesungsskript und Websuche, nicht die Originalarbeit) und hier nur an K5 und K3,3 durch Aufzählung nachgerechnet, nicht an den nichtplanaren Plänen.
 - **„Nicht graphisch“ nur für fünf Matroide** und unter der Annahme, dass ein zusammenhängendes graphisches Matroid von einem einfachen Graphen auf Rang + 1 Knoten kommt; eine allgemeine Prüfung „ist dieses Matroid graphisch?“ gibt es nicht.
 - **Binär, nicht regulär.** Dass regulär „weder F7 noch F7* als Minor“ heißt, wird nicht gezeigt.
 - **Der Satz „binär genau ohne U(2,4)-Minor“ ist von Tutte** (nach Websuche, Zusammenfassungen, nicht die Originalarbeit); hier an allen 497 kleinen Matroiden nachgerechnet, nicht bewiesen.

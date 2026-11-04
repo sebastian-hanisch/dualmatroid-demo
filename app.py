@@ -99,7 +99,7 @@ with st.container(key="kopf"):
     st.title("🔀 Dualität und Minoren")
 st.markdown(
     """
-Stück 4 hat den **Kreis** eingeführt, die kleinsten Mengen, die nicht zulässig sind. Hier kommt das **Gegenstück**: das **duale Matroid** M*, dessen Basen die **Komplemente der Basen** von M sind. Seine Kreise sind die **Kokreise** von M, die kleinsten Mengen, die jede Basis treffen; beim Wald sind das genau die **Schnitte** des Leitungsnetzes. Kreis und Schnitt sind also derselbe Begriff in M und in M*. Dazu vertauschen sich Löschen und Zusammenziehen unter dem Dual, bei planaren Graphen ist das Dual der **Dualgraph**, und nicht jedes Matroid ist **graphisch** (die Fano-Ebene nicht); ob ein Matroid **binär** ist, zeigt ein Minor namens U(2,4).
+Stück 4 hat den **Kreis** eingeführt, die kleinsten Mengen, die nicht zulässig sind. Hier kommt das **Gegenstück**: das **duale Matroid** M*, dessen Basen die **Komplemente der Basen** von M sind. Seine Kreise sind die **Kokreise** von M, die kleinsten Mengen, die jede Basis treffen; beim Wald sind das genau die **minimalen Schnitte** des Leitungsnetzes. Kreis und Schnitt sind also derselbe Begriff in M und in M*. Dazu vertauschen sich Löschen und Zusammenziehen unter dem Dual, bei planaren Graphen ist das Dual der **Dualgraph**, und nicht jedes Matroid ist **graphisch** (die Fano-Ebene nicht); ob ein Matroid **binär** ist, zeigt ein Minor namens U(2,4).
 
 Dies ist das **sechste Stück** der Reihe „Matroide und Submodularität“. Weiter unten: vier Experimente (🔬), eine **Spielwiese**, **🚧 Wo die Annahmen enden** und der Expander **📐 Mathematische Formulierung**.
 """
@@ -129,8 +129,8 @@ with st.sidebar:
     seed = st.number_input("Zufalls-Seed des Plans", *bounds("seed_input"), key="seed_input", step=1)
     st.button("🎲 Neuen Plan generieren", width="stretch", on_click=randomize_seed)
     st.markdown("**System**")
-    system = st.selectbox("Zulässige Mengen", C.SYSTEMS, key="system_select", format_func=lambda k: C.SYSTEM_NAMES[k] + ("" if k in C.MATROID_SYSTEMS else " (kein Matroid)"),
-                          help="Sechs Matroide und fünf Systeme, die keine sind (ohne Dual). Die Fano-Ebene hat feste sieben Punkte und hängt nicht vom Plan ab.")
+    system = st.selectbox("Zulässige Mengen", C.SYSTEMS, key="system_select", format_func=lambda k: C.SYSTEM_NAMES[k] + ("" if k in C.MATROID_SYSTEMS else (" (auf dem Standardplan kein Matroid)" if k == "wald_farben" else " (kein Matroid)")),
+                          help="Sechs Matroide und fünf Systeme, die auf dem Standardplan keine sind (ohne Dual; Wald und Farbregel ist auf manchen Plänen doch ein Matroid). Die Fano-Ebene hat feste sieben Punkte und hängt nicht vom Plan ab.")
 
 sync_query_params({"n_slider": int(n), "seed_input": int(seed), "system_select": system})
 
@@ -273,11 +273,11 @@ st.markdown(
 | Annahme | Was passiert, wenn sie verletzt ist (wer setzt an) |
 |---|---|
 | **Die Grundmenge ist klein (höchstens 16 Elemente)** | Basen, Kreise und Dual werden aus allen Teilmengen berechnet. Die Aufzählung aller Matroide geht nur bis 5 Elemente, die Suche nach einem U(2,4)-Minor nur bis 12 Elemente. **(Stück 17)** |
-| **Das System ist ein Matroid** | Bei den fünf Systemen, die keine Matroide sind, gibt es kein Dual: Die Komplemente der maximalen Mengen sind keine Basen eines Matroids. **(Stück 3)** |
-| **Der Plan ist planar** | Den Dualgraphen gibt es nur bei planaren Plänen (und hier nur beim Wald); die Standort-Zeichnung ist selten kreuzungsfrei, deshalb wird der Plan neu gezeichnet. Bei nichtplanaren Plänen ist das Dual ein Matroid, aber nicht graphisch; gezeigt wird das nur an K5 und K3,3, im Allgemeinen ist es ein Satz von Tutte. **(Stück 6)** |
+| **Das System ist ein Matroid** | Bei den fünf Systemen, die auf dem Standardplan keine Matroide sind, gibt es kein Dual: Die Komplemente der maximalen Mengen sind keine Basen eines Matroids. **(Stück 3)** |
+| **Der Plan ist planar** | Den Dualgraphen gibt es nur bei planaren Plänen (und hier nur beim Wald); die Standort-Zeichnung ist selten kreuzungsfrei, deshalb wird der Plan neu gezeichnet. Bei nichtplanaren Plänen ist das Dual ein Matroid, aber nicht graphisch; gezeigt wird das nur an K5 und K3,3, im Allgemeinen ist es ein Satz von Whitney (Planaritätskriterium). **(Stück 6)** |
 | **„Nicht graphisch“ nur für fünf Matroide** | Die Aufzählung gilt für F7, F7*, U(2,4), M*(K3,3) und M*(K5) unter der Annahme, dass ein zusammenhängendes graphisches Matroid von einem einfachen Graphen auf Rang + 1 Knoten kommt; eine allgemeine Prüfung „ist dieses Matroid graphisch?“ gibt es hier nicht. **(Stück 6)** |
 | **Binär, nicht regulär** | Regulär (über jedem Körper darstellbar) heißt zusätzlich: weder F7 noch F7* als Minor; das wird hier nicht gezeigt. **(nicht in dieser Reihe)** |
-| **Ein Matroid, nicht zwei** | Der Schnitt zweier Matroide ist kein Matroid und hat kein Dual; man braucht den Matroid-Schnitt-Algorithmus. **(Stück 7)** |
+| **Ein Matroid, nicht zwei** | Der Schnitt zweier Matroide ist im Allgemeinen kein Matroid und hat dann kein Dual; man braucht den Matroid-Schnitt-Algorithmus. **(Stück 7)** |
 | **Das Tutte-Polynom** | Es verträgt sich mit Dualität (Vertauschen der beiden Variablen), wird hier aber nicht gezeigt. **(Stück 16)** |
 """
 )
@@ -299,13 +299,13 @@ with st.expander("📐 Mathematische Formulierung"):
 
 **Dualität.** $M^*$ ist ein Matroid, $(M^*)^* = M$, und $r(M^*) = \lvert E \rvert - r(M)$. Es gilt $(M \setminus e)^* = M^* / e$ und $(M / e)^* = M^* \setminus e$. Für jeden Kreis $C$ und jeden Kokreis $C^*$ gilt $\lvert C \cap C^* \rvert \neq 1$.
 
-**Graphen.** Für einen zusammenhängenden Graphen $G$ sind die Kokreise von $M(G)$ genau die **Bonds** (minimale Kantenschnitte). Ist $G$ planar mit Dualgraph $G^*$, so ist $M(G)^* = M(G^*)$: Die Komplemente der Spannbäume von $G$ sind genau die Spannbäume von $G^*$. Allgemein ist $M(G)^*$ genau dann graphisch, wenn $G$ planar ist (Tutte).
+**Graphen.** Für einen zusammenhängenden Graphen $G$ sind die Kokreise von $M(G)$ genau die **Bonds** (minimale Kantenschnitte). Ist $G$ planar mit Dualgraph $G^*$, so ist $M(G)^* = M(G^*)$: Die Komplemente der Spannbäume von $G$ sind genau die Spannbäume von $G^*$. Allgemein ist $M(G)^*$ genau dann graphisch, wenn $G$ planar ist (Whitney).
 
 **Binär.** Ein Matroid ist binär (über $\mathrm{GF}(2)$ darstellbar) genau dann, wenn jeder Kreis jeden Kokreis in einer geraden Zahl von Elementen schneidet, genau dann, wenn es keinen Minor $U_{2,4}$ hat (Tutte). Zu einer Basis $B$ ist die Darstellung eindeutig: $e \notin B$ ist die Summe der Einheitsvektoren der Elemente von $B$ im Fundamentalkreis $C(B, e)$.
 
 **Nicht graphisch.** Ein graphisches Matroid vom Rang $r$ ohne parallele Elemente und Schleifen hat höchstens $\binom{r+1}{2}$ Elemente (einfacher Graph auf $r + 1$ Knoten); die Fano-Ebene hat 7 Elemente bei Rang 3 und $\binom{4}{2} = 6$. Sonst zählt man die Spannbäume eines Kandidaten (Kirchhoff, Determinante des gekürzten Laplace-Matrix) und vergleicht mit $\lvert \mathcal{B} \rvert$.
 
-**Literatur.** Dass $M(G)^*$ genau bei planaren $G$ graphisch ist, und die Kennzeichnung der binären Matroide über $U_{2,4}$, stammen von Tutte; die Quellen (Vorlesungsskripte, Übersichtsarbeiten, per Websuche) wurden nur über Auszüge eingesehen, nicht die Originalarbeiten; Standardwerk: Oxley, *Matroid Theory*, nicht eingesehen. Die Konstruktion des Dualgraphen über das Rotationssystem und die Aufzählung der Graphen sind hier hergeleitet und nachgerechnet.
+**Literatur.** Dass $M(G)^*$ genau bei planaren $G$ graphisch ist, ist das Planaritätskriterium von Whitney; die Kennzeichnung der binären Matroide über $U_{2,4}$ stammt von Tutte; die Quellen (Vorlesungsskripte, Übersichtsarbeiten, per Websuche) wurden nur über Auszüge eingesehen, nicht die Originalarbeiten; Standardwerk: Oxley, *Matroid Theory*, nicht eingesehen. Die Konstruktion des Dualgraphen über das Rotationssystem und die Aufzählung der Graphen sind hier hergeleitet und nachgerechnet.
         """
     )
 

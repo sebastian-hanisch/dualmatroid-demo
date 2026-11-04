@@ -56,7 +56,7 @@ def test_dual_graph_verdict_branches():
     assert ev.verdict_dual_graph(a, {**ok, "check": {**ok["check"], "equal": False}})[0] == "error"
     assert ev.verdict_dual_graph(a, {**ok, "check": {**ok["check"], "euler": False}})[0] == "error"
     kind, text = ev.verdict_dual_graph(a, {"available": True, "planar": False, "crossing_free": False})
-    assert kind == "warning" and "nicht planar" in text and "Tutte" in text
+    assert kind == "warning" and "nicht planar" in text and "Whitney" in text
     assert ev.verdict_dual_graph(a, {"available": False})[0] == "info"
 
 
