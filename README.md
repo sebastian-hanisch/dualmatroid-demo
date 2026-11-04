@@ -1,7 +1,6 @@
 # Dualität und Minoren – Kreis und Schnitt – Streamlit-Demo
 
-<!-- TODO nach dem Deploy: direkt hierher den Live-Link setzen (Leerzeile davor und danach):
-**[→ Demo live ausprobieren](https://sebastianhanisch-dualmatroid-demo.streamlit.app/)** -->
+**[→ Demo live ausprobieren](https://sebastianhanisch-dualmatroid-demo.streamlit.app/)**
 
 Sechstes Stück der Reihe **Matroide und Submodularität** (Bereich Kombinatorik) in der „Konzepte“-Reihe für die Website „Sebastian Hanisch – Operations Research und Machine Learning“. Die Demo zeigt das **Gegenstück zum Kreis**: das duale Matroid M*, dessen Basen die Komplemente der Basen von M sind, dessen Kreise die **Kokreise** von M sind (beim Wald die minimalen **Schnitte**), und bei dem sich **Löschen und Zusammenziehen** vertauschen. Dazu: das Dual eines planaren Plans ist der **Dualgraph**, nicht jedes Matroid ist **graphisch**, und **binär** heißt „kein U(2,4)-Minor“.
 
